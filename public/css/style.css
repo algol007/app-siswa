@@ -6,3 +6,16 @@ a{
 a:hover{
   color: inherit;
 }
+
+#footer{
+  margin-top: 50px;
+}
+
+.pagination{
+  float: right;
+}
+
+.errors{
+  font-size: 80%;
+  color: #dc3545;
+}

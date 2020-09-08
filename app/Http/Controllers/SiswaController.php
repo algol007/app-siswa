@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
@@ -15,7 +16,7 @@ class SiswaController extends Controller
     public function index()
     {
       $halaman = 'siswa';
-      $siswa_list = Siswa::all();
+      $siswa_list = Siswa::orderBy('created_at', 'desc')->paginate(2);
       $jumlah_siswa = Siswa::count();
       return view('siswa.index', compact('halaman', 'siswa_list', 'jumlah_siswa'));
     }
@@ -27,7 +28,7 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+      return view('siswa.create');
     }
 
     /**
@@ -38,7 +39,24 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $input = $request->all();
+      
+      $validator = Validator::make($input, [
+        'nisn' => 'required|string|size:4|unique:siswa,nisn',
+        'nama_siswa' => 'required|string|max:30',
+        'tanggal_lahir' => 'required|date',
+        'jenis_kelamin' => 'required|in:L,P'
+      ]);
+
+      if($validator->fails()) {
+        return redirect('siswa/create')
+                ->withInput()
+                ->withErrors($validator);
+      }
+
+      Siswa::create($input);
+
+      return redirect('siswa');
     }
 
     /**
@@ -47,9 +65,11 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Siswa $siswa)
+    public function show($id)
     {
-        //
+      $halaman = 'siswa';
+      $siswa = Siswa::findOrFail($id);
+      return view('siswa.show', compact('halaman', 'siswa'));      
     }
 
     /**
@@ -58,9 +78,10 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        //
+      $siswa = Siswa::findOrFail($id);
+      return view('siswa.edit', compact('siswa'));      
     }
 
     /**
@@ -70,9 +91,27 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update($id, Request $request)
     {
-        //
+      $siswa = Siswa::findOrFail($id);
+      $input = $request->all();
+      
+      $validator = Validator::make($input, [
+        'nisn' => 'required|string|size:4|unique:siswa,nisn,' . $id,
+        'nama_siswa' => 'required|string|max:30',
+        'tanggal_lahir' => 'required|date',
+        'jenis_kelamin' => 'required|in:L,P'
+      ]);
+
+      if($validator->fails()) {
+        return redirect('siswa/'. $id . '/edit')
+                ->withInput()
+                ->withErrors($validator);
+      }
+
+      $siswa->update($request->all());
+
+      return redirect('siswa');
     }
 
     /**
@@ -81,8 +120,10 @@ class SiswaController extends Controller
      * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
+    public function destroy($id)
     {
-        //
+      $siswa = Siswa::findOrFail($id);
+      $siswa->delete();
+      return redirect('siswa');      
     }
 }
