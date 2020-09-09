@@ -15,6 +15,7 @@
             <th>Nama</th>
             <th>Tanggal Lahir</th>
             <th>Jenis Kelamin</th>
+            <th>Telepon</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
             <td>{{ $siswa->nama_siswa }}</td>
             <td>{{ $siswa->tanggal_lahir }}</td>
             <td>{{ $siswa->jenis_kelamin }}</td>
+            <td>{{ !empty($siswa->telepon->nomor_telepon) ? $siswa->telepon->nomor_telepon : '-' }}</td>
             <td>
               <a href="/siswa/{{ $siswa->id }}" class="btn btn-sm btn-info float-left m-1">Detail</a>
               <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-sm btn-warning float-left m-1">Edit</a>
