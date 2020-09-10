@@ -76,6 +76,16 @@
         @endif
       </div>
 
+      <div class="form-group">
+        <label for="nomor_telepon">Telepon :</label>
+        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukkan Nomor Telepon" value="{{ $siswa->telepon->nomor_telepon }}">
+        @if ($errors->has('nomor_telepon'))
+        <p class="errors">
+          {{ $errors->first('nomor_telepon') }}
+        </p>
+        @endif
+      </div>
+
       <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
   </div>

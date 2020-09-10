@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Siswa;
+use App\Telepon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -45,7 +46,8 @@ class SiswaController extends Controller
         'nisn' => 'required|string|size:4|unique:siswa,nisn',
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|in:L,P'
+        'jenis_kelamin' => 'required|in:L,P',
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon'
       ]);
 
       if($validator->fails()) {
@@ -54,7 +56,16 @@ class SiswaController extends Controller
                 ->withErrors($validator);
       }
 
-      Siswa::create($input);
+      $siswa = Siswa::create($input);
+
+      $telepon = new Telepon;
+      if($request->nomor_telepon) {      
+        $telepon->nomor_telepon = $request->nomor_telepon;
+        $siswa->telepon()->save($telepon);
+      } else {
+        $telepon->nomor_telepon = "-";
+        $siswa->telepon()->save($telepon);
+      }
 
       return redirect('siswa');
     }
@@ -81,6 +92,7 @@ class SiswaController extends Controller
     public function edit($id)
     {
       $siswa = Siswa::findOrFail($id);
+      // $siswa->nomor_telepon = $siswa->telepon->nomor_telepon;
       return view('siswa.edit', compact('siswa'));      
     }
 
@@ -100,7 +112,8 @@ class SiswaController extends Controller
         'nisn' => 'required|string|size:4|unique:siswa,nisn,' . $id,
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|in:L,P'
+        'jenis_kelamin' => 'required|in:L,P',
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa'
       ]);
 
       if($validator->fails()) {
@@ -110,6 +123,10 @@ class SiswaController extends Controller
       }
 
       $siswa->update($request->all());
+
+      $telepon = $siswa->telepon;
+      $telepon->nomor_telepon = $request->nomor_telepon;
+      $siswa->telepon()->save($telepon);
 
       return redirect('siswa');
     }

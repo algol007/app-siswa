@@ -56,20 +56,15 @@
         @endif
       </div>
 
-
-      <!-- <div class="form-group">
-        <label for="jenis_kelamin">Jenis Kelamin</label>
-        <select class="custom-select" id="jenis_kelamin">
-          <option selected disabled value="{{ old('jenis_kelamin') }}">Pilih Jenis Kelamin</option>
-          <option value="L">Laki-Laki</option>
-          <option value="P">Perempuan</option>
-        </select>
-        @if ($errors->has('jenis_kelamin'))
+      <div class="form-group">
+        <label for="nomor_telepon">Telepon :</label>
+        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukkan Nomor Telepon" value="{{ old('nomor_telepon') }}">
+        @if ($errors->has('nomor_telepon'))
         <p class="errors">
-          {{ $errors->first('jenis_kelamin') }}
+          {{ $errors->first('nomor_telepon') }}
         </p>
         @endif
-      </div> -->
+      </div>
 
       <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
