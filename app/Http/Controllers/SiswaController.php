@@ -47,7 +47,7 @@ class SiswaController extends Controller
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon'
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon'
       ]);
 
       if($validator->fails()) {
@@ -59,8 +59,13 @@ class SiswaController extends Controller
       $siswa = Siswa::create($input);
 
       $telepon = new Telepon;
-      $telepon->nomor_telepon = $request->nomor_telepon;
-      $siswa->telepon()->save($telepon);
+      if($request->nomor_telepon) {      
+        $telepon->nomor_telepon = $request->nomor_telepon;
+        $siswa->telepon()->save($telepon);
+      } else {
+        $telepon->nomor_telepon = "-";
+        $siswa->telepon()->save($telepon);
+      }
 
       return redirect('siswa');
     }
@@ -87,10 +92,8 @@ class SiswaController extends Controller
     public function edit($id)
     {
       $siswa = Siswa::findOrFail($id);
-      $telepon = Telepon::findOrFail($id);
       // $siswa->nomor_telepon = $siswa->telepon->nomor_telepon;
-      // return view('siswa.edit', compact('siswa'));      
-      return $telepon;
+      return view('siswa.edit', compact('siswa'));      
     }
 
     /**
@@ -110,7 +113,7 @@ class SiswaController extends Controller
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa'
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa'
       ]);
 
       if($validator->fails()) {

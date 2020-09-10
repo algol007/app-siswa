@@ -76,27 +76,15 @@
         @endif
       </div>
 
-      @if(!empty($siswa->telepon->nomor_telepon))
       <div class="form-group">
         <label for="nomor_telepon">Telepon :</label>
-        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukkan Nomor Telepon" value="{{ $siswa->nomor_telepon }}">
+        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukkan Nomor Telepon" value="{{ $siswa->telepon->nomor_telepon }}">
         @if ($errors->has('nomor_telepon'))
         <p class="errors">
           {{ $errors->first('nomor_telepon') }}
         </p>
         @endif
       </div>
-      @else
-      <div class="form-group">
-        <label for="nomor_telepon">Telepon :</label>
-        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Masukkan Nomor Telepon">
-        @if ($errors->has('nomor_telepon'))
-        <p class="errors">
-          {{ $errors->first('nomor_telepon') }}
-        </p>
-        @endif
-      </div>
-      @endif
 
       <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
