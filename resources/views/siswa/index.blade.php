@@ -7,7 +7,7 @@
 
     <a href="/siswa/create" class="btn btn-primary my-3">Tambah Siswa</a>
 
-    @if(!empty($siswa_list))
+    @if($jumlah_siswa !== 0)
       <table class="table">
         <thead>
           <tr>
@@ -40,10 +40,6 @@
           @endforeach
         </tbody>
       </table>
-    @else
-      <p>Tidak ada data siswa.</p>
-    @endif
-
     <div class="row pt-3">    
       <div class="col-md-6">
         <strong>Jumlah Siswa : {{ $jumlah_siswa }}</strong>
@@ -52,6 +48,11 @@
         {{ $siswa_list->links() }}
       </div>
     </div>
+
+    @else
+      <p>Tidak ada data siswa.</p>
+    @endif
+
   </div>
 
 @endsection

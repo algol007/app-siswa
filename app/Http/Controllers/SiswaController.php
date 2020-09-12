@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Siswa;
+use App\Kelas;
 use App\Telepon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

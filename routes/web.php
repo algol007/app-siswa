@@ -24,4 +24,12 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/siswa/{siswa}/edit', 'SiswaController@edit');
   Route::patch('/siswa/{siswa}', 'SiswaController@update');
   Route::delete('/siswa/{siswa}', 'SiswaController@destroy');
+
+  Route::get('/kelas', 'KelasController@index');
+  Route::post('/kelas', 'KelasController@store');
+  Route::get('/kelas/create', 'KelasController@create');
+  Route::get('/kelas/{kelas}', 'KelasController@show');
+  Route::get('/kelas/{kelas}/edit', 'KelasController@edit');
+  Route::patch('/kelas/{kelas}', 'KelasController@update');
+  Route::delete('/kelas/{kelas}', 'KelasController@destroy');
 });
