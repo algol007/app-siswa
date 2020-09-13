@@ -22,7 +22,7 @@
             <td>{{ $no++ ?? '' }}</td>
             <td>{{ $kelas->nama_kelas }}</td>
             <td>
-              <a href="/kelas/{{ $kelas->id }}" class="btn btn-sm btn-info float-left m-1">Detail</a>
+              <!-- <a href="/kelas/{{ $kelas->id }}" class="btn btn-sm btn-info float-left m-1">Detail</a> -->
               <a href="/kelas/{{ $kelas->id }}/edit" class="btn btn-sm btn-warning float-left m-1">Edit</a>
               <form action="/kelas/{{ $kelas->id }}" method="POST">
                 @method('delete')

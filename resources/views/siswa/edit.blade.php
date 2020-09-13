@@ -27,6 +27,7 @@
         </p>
         @endif
       </div>
+      
       <div class="form-group">
         <label for="tanggal_lahir">Tanggal Lahir :</label>
         <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ $siswa->tanggal_lahir }}">
@@ -36,6 +37,22 @@
         </p>
         @endif
       </div>
+
+      <div class="form-group">
+        <label for="id_kelas">Kelas :</label>
+        <select class="form-control" id="id_kelas" name="id_kelas">
+          <option selected>Pilih Kelas...</option>
+          @foreach($list_kelas as $kelas)
+          <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+          @endforeach
+        </select>
+        @if ($errors->has('id_kelas'))
+        <p class="errors">
+          {{ $errors->first('id_kelas') }}
+        </p>
+        @endif
+      </div>
+
       <div class="form-group">      
         <p>Jenis Kelamin :</p>
         @if ($siswa->jenis_kelamin == 'L')
