@@ -32,4 +32,12 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/kelas/{kelas}/edit', 'KelasController@edit');
   Route::patch('/kelas/{kelas}', 'KelasController@update');
   Route::delete('/kelas/{kelas}', 'KelasController@destroy');
+
+  Route::get('/hobi', 'HobiController@index');
+  Route::post('/hobi', 'HobiController@store');
+  Route::get('/hobi/create', 'HobiController@create');
+  Route::get('/hobi/{hobi}', 'HobiController@show');
+  Route::get('/hobi/{hobi}/edit', 'HobiController@edit');
+  Route::patch('/hobi/{hobi}', 'HobiController@update');
+  Route::delete('/hobi/{hobi}', 'HobiController@destroy');
 });

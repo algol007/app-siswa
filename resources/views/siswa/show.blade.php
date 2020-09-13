@@ -18,12 +18,24 @@
         <td>{{ $siswa->tanggal_lahir }}</td>
       </tr>
       <tr>
+        <th>Kelas</th>
+        <td>{{ $siswa->kelas->nama_kelas }}</td>
+      </tr>
+      <tr>
         <th>Jenis Kelamin</th>
         <td>{{ $siswa->jenis_kelamin }}</td>
       </tr>
       <tr>
         <th>Telepon</th>
         <td>{{ !empty($siswa->telepon->nomor_telepon) ? $siswa->telepon->nomor_telepon : '-' }}</td>
+      </tr>
+      <tr>
+        <th>Hobi</th>
+        <td>
+          @foreach($siswa->hobi as $item)
+            <strong><span>{{ $item->nama_hobi }}</span></strong>
+          @endforeach
+        </td>
       </tr>
     </table>
   </div>

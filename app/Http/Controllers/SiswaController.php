@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Siswa;
 use App\Kelas;
 use App\Telepon;
+use App\Hobi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,11 @@ class SiswaController extends Controller
      */
     public function create()
     {
-      return view('siswa.create');
+      $list_kelas = Kelas::all();
+      $jumlah_kelas = Kelas::count();
+      $list_hobi = hobi::all();
+      $jumlah_hobi = hobi::count();
+      return view('siswa.create', compact('list_kelas', 'jumlah_kelas', 'list_hobi', 'jumlah_hobi'));
     }
 
     /**
@@ -48,7 +53,8 @@ class SiswaController extends Controller
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon'
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
+        'id_kelas' => 'required'
       ]);
 
       if($validator->fails()) {
@@ -67,6 +73,8 @@ class SiswaController extends Controller
         $telepon->nomor_telepon = "-";
         $siswa->telepon()->save($telepon);
       }
+
+      $siswa->hobi()->attach($request->id_hobi);
 
       return redirect('siswa');
     }
@@ -93,8 +101,10 @@ class SiswaController extends Controller
     public function edit($id)
     {
       $siswa = Siswa::findOrFail($id);
+      $list_kelas = Kelas::all();
+      $jumlah_kelas = Kelas::count();
       // $siswa->nomor_telepon = $siswa->telepon->nomor_telepon;
-      return view('siswa.edit', compact('siswa'));      
+      return view('siswa.edit', compact('siswa', 'list_kelas', 'jumlah_kelas'));      
     }
 
     /**
@@ -114,7 +124,8 @@ class SiswaController extends Controller
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa'
+        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa',
+        'id_kelas' => 'required'
       ]);
 
       if($validator->fails()) {

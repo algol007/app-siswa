@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Kelas;
+use App\Hobi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class KelasController extends Controller
+class HobiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,10 @@ class KelasController extends Controller
      */
     public function index()
     {
-      $halaman = 'kelas';
-      $kelas_list = Kelas::orderBy('created_at', 'desc')->paginate(2);
-      $jumlah_kelas = Kelas::count();
-      return view('kelas.index', compact('halaman', 'kelas_list', 'jumlah_kelas'))->with('no', 1);;
+      $halaman = 'hobi';
+      $hobi_list = Hobi::orderBy('created_at', 'desc')->paginate(2);
+      $jumlah_hobi = Hobi::count();
+      return view('hobi.index', compact('halaman', 'hobi_list', 'jumlah_hobi'))->with('no', 1);;
     }
 
     /**
@@ -28,7 +28,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-      return view('kelas.create');
+      return view('hobi.create');
     }
 
     /**
@@ -42,18 +42,18 @@ class KelasController extends Controller
       $input = $request->all();
       
       $validator = Validator::make($input, [
-        'nama_kelas' => 'required|string|max:30',
+        'nama_hobi' => 'required|string',
       ]);
 
       if($validator->fails()) {
-        return redirect('kelas/create')
+        return redirect('hobi/create')
                 ->withInput()
                 ->withErrors($validator);
       }
 
-      $kelas = Kelas::create($input);
+      $hobi = Hobi::create($input);
 
-      return redirect('kelas');
+      return redirect('hobi');
     }
 
     /**
@@ -64,9 +64,9 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-      $halaman = 'kelas';
-      $kelas = Kelas::findOrFail($id);
-      return view('kelas.show', compact('halaman', 'kelas'));      
+      $halaman = 'hobi';
+      $hobi = Hobi::findOrFail($id);
+      return view('hobi.show', compact('halaman', 'hobi'));      
     }
 
     /**
@@ -77,8 +77,8 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-      $kelas = Kelas::findOrFail($id);
-      return view('kelas.edit', compact('kelas'));      
+      $hobi = Hobi::findOrFail($id);
+      return view('hobi.edit', compact('hobi'));      
     }
 
     /**
@@ -90,22 +90,22 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $kelas = Kelas::findOrFail($id);
+      $hobi = Hobi::findOrFail($id);
       $input = $request->all();
       
       $validator = Validator::make($input, [
-        'nama_kelas' => 'required|string|max:30',
+        'nama_hobi' => 'required|string|max:30',
       ]);
 
       if($validator->fails()) {
-        return redirect('kelas/'. $id . '/edit')
+        return redirect('hobi/'. $id . '/edit')
                 ->withInput()
                 ->withErrors($validator);
       }
 
-      $kelas->update($request->all());
+      $hobi->update($request->all());
 
-      return redirect('kelas');
+      return redirect('hobi');
     }
 
     /**
@@ -116,8 +116,8 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-      $kelas = Kelas::findOrFail($id);
-      $kelas->delete();
-      return redirect('kelas');      
+      $hobi = Hobi::findOrFail($id);
+      $hobi->delete();
+      return redirect('hobi');      
     }
 }

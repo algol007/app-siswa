@@ -96,7 +96,7 @@ return [
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => ':attribute harus di isi.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -131,22 +131,16 @@ return [
 
     'custom' => [
       'nisn' => [
-        'required' => 'NISN harus di isi.',
         'string' => 'NISN harus berupa string.',
         'size' => 'NISN harus :size angka.',
         'unique' => 'NISN sudah terpakai.',
       ],
       'nama_siswa' => [
-        'required' => 'Nama Siswa harus di isi.',
         'string' => 'Nama Siswa harus berupa string.',
         'max' => 'Nama Siswa tidak boleh lebih dari :max karakter.',
       ],
       'tanggal_lahir' => [
-        'required' => 'Tanggal Lahir harus di isi.',
         'date' => 'Tanggal Lahir harus berupa tanggal.',
-      ],
-      'jenis_kelamin' => [
-        'required' => 'Jenis Kelamin harus di isi.',
       ],
     ],
 
