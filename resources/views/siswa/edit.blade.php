@@ -103,6 +103,18 @@
         @endif
       </div>
 
+      <div class="form-group">
+        <label for="hobi">Hobi :</label>
+        @foreach($list_hobi as $key => $value)
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{ $value->id }}" id="hobi" name="hobi[]">
+          <label class="form-check-label" for="nama_hobi">
+            {{ $value->nama_hobi }}
+          </label>
+        </div>
+        @endforeach
+      </div>
+
       <button type="submit" class="btn btn-primary mt-4">Edit</button>
     </form>
   </div>

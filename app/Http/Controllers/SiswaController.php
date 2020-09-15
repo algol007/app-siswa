@@ -33,8 +33,8 @@ class SiswaController extends Controller
     {
       $list_kelas = Kelas::all();
       $jumlah_kelas = Kelas::count();
-      $list_hobi = hobi::all();
-      $jumlah_hobi = hobi::count();
+      $list_hobi = Hobi::all();
+      $jumlah_hobi = Hobi::count();
       return view('siswa.create', compact('list_kelas', 'jumlah_kelas', 'list_hobi', 'jumlah_hobi'));
     }
 
@@ -46,6 +46,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
+      // return $request;
       $input = $request->all();
       
       $validator = Validator::make($input, [
@@ -74,7 +75,7 @@ class SiswaController extends Controller
         $siswa->telepon()->save($telepon);
       }
 
-      $siswa->hobi()->attach($request->id_hobi);
+      $siswa->hobi()->attach($request->hobi);
 
       return redirect('siswa');
     }
@@ -103,8 +104,10 @@ class SiswaController extends Controller
       $siswa = Siswa::findOrFail($id);
       $list_kelas = Kelas::all();
       $jumlah_kelas = Kelas::count();
+      $list_hobi = Hobi::all();
+      $jumlah_hobi = Hobi::count();
       // $siswa->nomor_telepon = $siswa->telepon->nomor_telepon;
-      return view('siswa.edit', compact('siswa', 'list_kelas', 'jumlah_kelas'));      
+      return view('siswa.edit', compact('siswa', 'list_kelas', 'jumlah_kelas', 'list_hobi', 'jumlah_hobi'));      
     }
 
     /**
@@ -140,6 +143,7 @@ class SiswaController extends Controller
       $telepon->nomor_telepon = $request->nomor_telepon;
       $siswa->telepon()->save($telepon);
 
+      $siswa->hobi()->sync($request->hobi);
       return redirect('siswa');
     }
 

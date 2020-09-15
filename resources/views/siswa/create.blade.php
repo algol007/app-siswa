@@ -89,29 +89,17 @@
         @endif
       </div>
 
-      @if($jumlah_hobi !== 0)
       <div class="form-group">
-        <label for="id_hobi">Hobi :</label>
-        @foreach($list_hobi as $hobi)
+        <label for="hobi">Hobi :</label>
+        @foreach($list_hobi as $key => $value)
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="{{ $hobi->id_hobi }}" id="id_hobi" name="id_hobi">
-          <label class="form-check-label" for="id_hobi">
-            {{ $hobi->nama_hobi }}
+          <input class="form-check-input" type="checkbox" value="{{ $value->id }}" id="hobi" name="hobi[]">
+          <label class="form-check-label" for="nama_hobi">
+            {{ $value->nama_hobi }}
           </label>
         </div>
         @endforeach
-        @if ($errors->has('id_hobi'))
-        <p class="errors">
-          {{ $errors->first('id_hobi') }}
-        </p>
-        @endif
       </div>
-      @else
-      <div class="form-group">
-        <label for="id_hobi">hobi :</label>
-        <input type="input" class="form-control" id="id_hobi" name="id_hobi" value="-" readonly>
-      </div>
-      @endif
 
       <button type="submit" class="btn btn-primary mt-4">Tambah</button>
     </form>
