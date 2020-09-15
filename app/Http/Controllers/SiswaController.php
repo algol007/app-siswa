@@ -49,7 +49,7 @@ class SiswaController extends Controller
       // return $request;
       $input = $request->all();
       
-      $validator = Validator::make($input, [
+      $this->validate($request, [
         'nisn' => 'required|string|size:4|unique:siswa,nisn',
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
@@ -57,12 +57,6 @@ class SiswaController extends Controller
         'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
         'id_kelas' => 'required'
       ]);
-
-      if($validator->fails()) {
-        return redirect('siswa/create')
-                ->withInput()
-                ->withErrors($validator);
-      }
 
       $siswa = Siswa::create($input);
 
@@ -122,7 +116,7 @@ class SiswaController extends Controller
       $siswa = Siswa::findOrFail($id);
       $input = $request->all();
       
-      $validator = Validator::make($input, [
+      $this->validate($request, [
         'nisn' => 'required|string|size:4|unique:siswa,nisn,' . $id,
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
@@ -130,12 +124,6 @@ class SiswaController extends Controller
         'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa',
         'id_kelas' => 'required'
       ]);
-
-      if($validator->fails()) {
-        return redirect('siswa/'. $id . '/edit')
-                ->withInput()
-                ->withErrors($validator);
-      }
 
       $siswa->update($request->all());
 

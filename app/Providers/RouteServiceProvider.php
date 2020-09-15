@@ -31,8 +31,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         parent::boot();
+        // $router->model('siswa', 'App\Siswa');
     }
 
     /**
@@ -46,7 +46,11 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        // $router->group(['namespace' => $this->namespace],
+        //   function ($router) {
+        //     require app_path('Http/routes.php');
+        //   }
+        // );
     }
 
     /**

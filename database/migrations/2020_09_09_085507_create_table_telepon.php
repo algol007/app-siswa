@@ -15,7 +15,7 @@ class CreateTableTelepon extends Migration
     {
         Schema::create('telepon', function (Blueprint $table) {
             $table->unsignedBigInteger('id_siswa');
-            $table->string('nomor_telepon')->unique();
+            $table->string('nomor_telepon')->unique()->nullable();
             $table->timestamps();
 
             $table->foreign('id_siswa')->references('id')->on('siswa')
