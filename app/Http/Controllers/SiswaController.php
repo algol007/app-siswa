@@ -46,17 +46,22 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-      // return $request;
       $input = $request->all();
-      
+
       $this->validate($request, [
         'nisn' => 'required|string|size:4|unique:siswa,nisn',
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
-        'id_kelas' => 'required'
+        'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon',
+        'id_kelas' => 'required',
+        'foto' => 'sometimes'
       ]);
+
+      $foto = $request->file('foto');
+      $nama_file = time(); 
+      $tujuan_upload = 'profile';
+      $file->move($tujuan_upload,$nama_file);
 
       $siswa = Siswa::create($input);
 
@@ -121,9 +126,15 @@ class SiswaController extends Controller
         'nama_siswa' => 'required|string|max:30',
         'tanggal_lahir' => 'required|date',
         'jenis_kelamin' => 'required|in:L,P',
-        'nomor_telepon' => 'nullable|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa',
-        'id_kelas' => 'required'
+        'nomor_telepon' => 'sometimes|numeric|digits_between:10,15|unique:telepon,nomor_telepon,' . $id . ',id_siswa',
+        'id_kelas' => 'required',
+        'foto' => 'sometimes'
       ]);
+
+      $foto = $request->file('foto');
+      $nama_file = time(); 
+      $tujuan_upload = 'profile';
+      $file->move($tujuan_upload,$nama_file);
 
       $siswa->update($request->all());
 

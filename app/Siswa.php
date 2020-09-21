@@ -12,7 +12,8 @@ class Siswa extends Model
       'nama_siswa',
       'tanggal_lahir',
       'jenis_kelamin',
-      'id_kelas'
+      'id_kelas',
+      'foto'
     ];
 
     public function telepon()

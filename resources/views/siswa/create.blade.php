@@ -5,7 +5,7 @@
   <div id="siswa">
     <h2 class="pb-3">Tambah Siswa</h2>
 
-    <form method="POST" action="/siswa">
+    <form method="POST" action="/siswa" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="nisn">NISN :</label>
@@ -99,6 +99,16 @@
           </label>
         </div>
         @endforeach
+      </div>
+
+      <div class="form-group">
+        <label for="foto">Foto Siswa :</label>
+        <input type="file" class="form-control" id="foto" name="foto">
+        @if ($errors->has('foto'))
+        <p class="errors">
+          {{ $errors->first('foto') }}
+        </p>
+        @endif
       </div>
 
       <button type="submit" class="btn btn-primary mt-4">Tambah</button>
